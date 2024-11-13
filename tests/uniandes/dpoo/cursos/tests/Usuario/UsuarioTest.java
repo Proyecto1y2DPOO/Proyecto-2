@@ -20,54 +20,56 @@ class UsuarioTest {
     private Usuario usuario;
     private static final String LOGIN = "user123";
     private static final String CONTRASENA = "password123";
-    private static final String NAME = "John Doe";
-    private static final Date DATE_OF_BIRTH = Date(1990, Month.JANUARY, 1);
-    private static final String DIRECCION = "123 Main St";
-    private static final int CEDULA = 123456789;
-    private static final String NIVEL_EDUCA = "Bachelor's Degree";
-
+    
     @BeforeEach
     void setUp() {
         usuario = new Usuario(LOGIN, CONTRASENA);
+        assertEquals(LOGIN, usuario.getLogin());
+        assertEquals(CONTRASENA, usuario.getContraseña());
     }
 
     @Test
-    void testConstructor() {
-        assertEquals(LOGIN, usuario.getLogin(), "El login debería ser correcto");
-        assertEquals(CONTRASENA, usuario.getContraseña(), "La contraseña debería ser correcta");
-    }
+    public void testInformetionUsuario() {
 
+        String name = "Laura Guiza";
+        Date dateOfBirth = new Date(2000, 12, 10); 
+        String direccion = "Calle 123";
+        int cedula = 12345678;
+        String nivelDeEduca = "Universitario";
+
+        usuario.informetionUsuario(name, dateOfBirth, direccion, cedula, nivelDeEduca);
+
+        assertEquals(name, usuario.getName());
+        assertEquals(dateOfBirth, usuario.getDateOfBirth());
+        assertEquals(direccion, usuario.getDireccion());
+        assertEquals(cedula, usuario.getCedula());
+        assertEquals(nivelDeEduca, usuario.getNivelDeEduca());
+    }
+    
     @Test
-    void testInformacionUsuario() {
-        usuario.informetionUsuario(NAME, DATE_OF_BIRTH, DIRECCION, CEDULA, NIVEL_EDUCA);
+    public void testSetters() {
+    	String name2 = "Juan Perez";
+    	String login2 = "juanperez";
+    	int cedula2 = 11345678;
+    	String nivelDeEduca2 = "Escolar";
+    	String contraseña2 = "Contraseña123";
+    	String direccion2 = "Calle 321";
+    	Date fecha2 = new Date(2000,12,10);
+    	usuario.setNivelDeEduca(nivelDeEduca2);
+    	usuario.setCedula(cedula2);
+        usuario.setName(name2);
+        usuario.setLogin(login2);
+        usuario.setContraseña(contraseña2);
+        usuario.setDireccion(direccion2);
+        usuario.setDateOfBirth(fecha2);
+        assertEquals(name2, usuario.getName());
+        assertEquals(login2, usuario.getLogin());
+        assertEquals(cedula2, usuario.getCedula());
+        assertEquals(nivelDeEduca2, usuario.getNivelDeEduca());
+        assertEquals(contraseña2, usuario.getContraseña());
+        assertEquals(direccion2, usuario.getDireccion());
+        assertEquals(fecha2, usuario.getDateOfBirth());
         
-        assertEquals(NAME, usuario.getName(), "El nombre debería ser correcto");
-        assertEquals(DATE_OF_BIRTH, usuario.getDateOfBirth(), "La fecha de nacimiento debería ser correcta");
-        assertEquals(DIRECCION, usuario.getDireccion(), "La dirección debería ser correcta");
-        assertEquals(CEDULA, usuario.getCedula(), "La cédula debería ser correcta");
-        assertEquals(NIVEL_EDUCA, usuario.getNivelDeEduca(), "El nivel educativo debería ser correcto");
     }
 
-    @Test
-    void testGettersAndSetters() {
-        // Modificar los valores usando los setters
-        String nuevoNombre = "Jane Doe";
-        Date nuevaFechaNacimiento = new Date(1995, 5, 15);  // Date constructor deprecated
-        String nuevaDireccion = "456 Elm St";
-        int nuevaCedula = 987654321;
-        String nuevoNivelEduca = "Master's Degree";
-        
-        usuario.setName(nuevoNombre);
-        usuario.setDateOfBirth(nuevaFechaNacimiento);
-        usuario.setDireccion(nuevaDireccion);
-        usuario.setCedula(nuevaCedula);
-        usuario.setNivelDeEduca(nuevoNivelEduca);
-
-        // Verificar que los valores hayan sido correctamente modificados
-        assertEquals(nuevoNombre, usuario.getName(), "El nombre debería haberse actualizado");
-        assertEquals(nuevaFechaNacimiento, usuario.getDateOfBirth(), "La fecha de nacimiento debería haberse actualizado");
-        assertEquals(nuevaDireccion, usuario.getDireccion(), "La dirección debería haberse actualizado");
-        assertEquals(nuevaCedula, usuario.getCedula(), "La cédula debería haberse actualizado");
-        assertEquals(nuevoNivelEduca, usuario.getNivelDeEduca(), "El nivel educativo debería haberse actualizado");
-    }
 }
