@@ -1,5 +1,4 @@
-package uniandes.dpoo.cursos.text;
-
+package uniandes.dpoo.cursos.tests.actividades;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
@@ -9,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import uniandes.dpoo.actividades.Actividad;
 
 
-class ActividadTest {
+public class ActividadTest {
 
     private Actividad actividad;
     private LocalDateTime fechaLimite;
@@ -29,12 +28,25 @@ class ActividadTest {
         actividad.agregarReseña("Excelente contenido");
         
         assertEquals(2, actividad.getRecomendacion().size());
-        assertEquals("Muy buena actividad", actividad.getRecomendacion().get(0));
-        assertEquals("Excelente contenido", actividad.getRecomendacion().get(1));
+        assertEquals("Muy buena actividad", actividad.getReseña().get(0));
+        assertEquals("Excelente contenido", actividad.getReseña().get(1));
     }
 
-    
-
+    @Test
+    void testAgregarRecomendacion() {
+        actividad.agregarRecomendacion("Recomiendo que cambien x cosa");
+        actividad.agregarRecomendacion("Recomiendo que lo mantengan");
+        
+        assertEquals(2, actividad.getRecomendacion().size());
+        assertEquals("Recomiendo que cambien x cosa", actividad.getRecomendacion().get(0));
+        assertEquals("Recomiendo que lo mantengan", actividad.getRecomendacion().get(1));
+    }
+    @Test
+    void testAgregarRating() {
+        actividad.agregarRating(4.9);
+        //System.out.println(actividad.getRating());
+        assertEquals(4.9, actividad.getRating());
+    }
     @Test
     void testCalificar() {
         actividad.calificar(8.5);

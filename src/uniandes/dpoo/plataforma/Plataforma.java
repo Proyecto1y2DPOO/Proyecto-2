@@ -22,7 +22,7 @@ public class Plataforma {
 	private Map<String,Professor> profesores;
 	private Map<String,LearningPath> learningPaths;
 	private LocalDateTime fechaAct;
-	private String usuario;
+	public String usuario;
     private Boolean esProfe;
 
     // Constructor for Plataforma

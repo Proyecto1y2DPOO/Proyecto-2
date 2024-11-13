@@ -21,9 +21,6 @@ public class FechaHoraActual {
         
         int respuesta=ahora.compareTo(raro);
         System.out.println("Fecha y hora actual: " + respuesta);
-        
-        
-        
 
         // Formatear la fecha y hora como "yyyy-MM-dd HH:mm:ss"
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

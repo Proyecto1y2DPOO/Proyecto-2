@@ -1,5 +1,6 @@
 package uniandes.dpoo.usuario;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Usuario {
