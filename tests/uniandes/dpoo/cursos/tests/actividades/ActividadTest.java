@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import uniandes.dpoo.actividades.Actividad;
@@ -129,6 +130,12 @@ public class ActividadTest {
     	actividad.setRating(4.5);
     	actividad.setEstado("Completado");
     	actividad.setObjetivo("Completar conocimientos");
+    	List<String> resenasEsperados = Arrays.asList("Bueno", "Malo", "Bueno, me gusto");
+    	actividad.setReseña(resenasEsperados);
+    	List<Double> ratingsEsperados = Arrays.asList(4.1, 2.0, 4.9);
+    	actividad.setRatings(ratingsEsperados);
+    	List<String> recomenEsperados = Arrays.asList("cambiar", "Mantener");
+    	actividad.setRecomendacion(recomenEsperados);
     }
 
 }
