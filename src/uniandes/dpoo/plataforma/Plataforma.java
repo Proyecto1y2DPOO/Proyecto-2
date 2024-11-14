@@ -22,10 +22,10 @@ public class Plataforma {
 	private Map<String,Professor> profesores;
 	private Map<String,LearningPath> learningPaths;
 	private LocalDateTime fechaAct;
-	public String usuario;
+	private String usuario;
     private Boolean esProfe;
 
-    // Constructor for Plataforma
+    
     public Plataforma() 
     {	
     	students = new HashMap<>();
@@ -150,7 +150,7 @@ public class Plataforma {
     	}
     }
     
-    public void crearEncuesta(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador) throws Exception {
+    public void crearEncuesta(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador, String objetivo) throws Exception {
     	if (esProfe==false){
     		throw new noEsProfeException("No es profesor no puede crear un Learning Path");
     	}
@@ -160,13 +160,13 @@ public class Plataforma {
 			}
 			else {
 				LearningPath learningPath=learningPaths.get(tituloLP);
-				learningPath.crearEncuesta(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador);
+				learningPath.crearEncuesta(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, objetivo);
 			}
     	}
     	
 	}
     
-    public void crearQuiz(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador,Double califMin) throws Exception {
+    public void crearQuiz(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador,Double califMin, String objetivo) throws Exception {
     	if (esProfe==false){
     		throw new noEsProfeException("No es profesor no puede crear un Learning Path");
     	}
@@ -176,13 +176,13 @@ public class Plataforma {
 			}
 			else {
 				LearningPath learningPath=learningPaths.get(tituloLP);
-				learningPath.crearQuiz(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador,califMin);
+				learningPath.crearQuiz(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador,califMin, objetivo);
 			}
     	}
     	
 	}
     
-    public void crearTarea(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador) throws Exception {
+    public void crearTarea(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador, String objetivo) throws Exception {
     	if (esProfe==false){
     		throw new noEsProfeException("No es profesor no puede crear un Learning Path");
     	}
@@ -191,11 +191,11 @@ public class Plataforma {
 			}
 			else {
 				LearningPath learningPath=learningPaths.get(tituloLP);
-				learningPath.crearTarea(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador);
+				learningPath.crearTarea(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, objetivo);
 			}
 	}
     
-    public void crearRecurso(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador,String tipoRecurso,String uRLRecuso) throws Exception {
+    public void crearRecurso(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador,String tipoRecurso,String uRLRecuso, String objetivo) throws Exception {
     	if (esProfe==false){
     		throw new noEsProfeException("No es profesor no puede crear un Learning Path");
     	}
@@ -205,12 +205,12 @@ public class Plataforma {
 			}
 			else {
 				LearningPath learningPath=learningPaths.get(tituloLP);
-				learningPath.crearRecurso(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, tipoRecurso,uRLRecuso);
+				learningPath.crearRecurso(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, tipoRecurso,uRLRecuso, objetivo);
 			}
     	}
 	}
     
-    public void crearExamen(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador) throws Exception {
+    public void crearExamen(String tituloLP,String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador, String objetivo) throws Exception {
     	if (esProfe==false){
     		throw new noEsProfeException("No es profesor no puede crear un Learning Path");
     	}
@@ -220,7 +220,7 @@ public class Plataforma {
 			}
 			else {
 				LearningPath learningPath=learningPaths.get(tituloLP);
-				learningPath.crearExamen(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador);
+				learningPath.crearExamen(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, objetivo);
 			}
     	}
 	}
@@ -587,5 +587,22 @@ public class Plataforma {
     		}
     	}
     }
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public Boolean getEsProfe() {
+		return esProfe;
+	}
+
+	public void setEsProfe(Boolean esProf) {
+		this.esProfe = esProf;
+	}
+	
     
 }

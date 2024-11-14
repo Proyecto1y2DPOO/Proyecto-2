@@ -23,10 +23,11 @@ class EncuestaTest {
     private static final LocalDateTime FECHA_LIMITE = LocalDateTime.now().plusDays(1);
     private static final boolean OBLIGATORIA = false;
     private static final String CREADOR = "Profesor";
+    private static final String OBJETIVO = "aprender mucho";
 
     @BeforeEach
     void setUp() {
-        encuesta = new Encuesta(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR);
+        encuesta = new Encuesta(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, OBJETIVO);
         encuesta.setPreguntas(new ArrayList<>());
     }
 

@@ -22,10 +22,11 @@ class TareaTest {
     private static final LocalDateTime FECHA_LIMITE = LocalDateTime.now().plusDays(3);
     private static final boolean OBLIGATORIA = true;
     private static final String CREADOR = "Profesor";
+    private static final String OBJETIVO = "aprender mucho";
 
     @BeforeEach
     void setUp() {
-        tarea = new Tarea(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR);
+        tarea = new Tarea(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, OBJETIVO);
     }
 
     @Test

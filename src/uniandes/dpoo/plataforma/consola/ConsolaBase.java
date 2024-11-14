@@ -1,12 +1,5 @@
 package uniandes.dpoo.plataforma.consola;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import uniandes.dpoo.actividades.Actividad;
-import uniandes.dpoo.actividades.Tarea;
 import uniandes.dpoo.plataforma.Plataforma;
 
 import java.util.Scanner;
@@ -63,25 +56,69 @@ public abstract class ConsolaBase {
             System.out.println("Error en el registro: " + e.getMessage());
         }
     }
-    
+
     public static void main(String[] args) {
         Plataforma plataforma = new Plataforma();
-        
-        ConsolaBase console;
-        System.out.println("¿Es usted un profesor o un estudiante? (P/E)");
         Scanner scanner = new Scanner(System.in);
-        String userType = scanner.nextLine();
+        ConsolaBase console = null;
 
-        if (userType.equalsIgnoreCase("P")) {
-            console = new ConsolaProfesor(plataforma);
+        System.out.println("¿Desea (1) Iniciar sesión o (2) Registrarse?");
+        int option = scanner.nextInt();
+        scanner.nextLine();  // Clear buffer
+
+        if (option == 1) {
+            // Iniciar sesión
+            System.out.println("Ingrese su login:");
+            String login = scanner.nextLine();
+            System.out.println("Ingrese su contraseña:");
+            String password = scanner.nextLine();
+            
+            try {
+                plataforma.iniciarSesion(login, password);
+                System.out.println("Inicio de sesión exitoso.");
+
+                // Redirigir según el rol del usuario
+                if (plataforma.getEsProfe()) {
+                    console = new ConsolaProfesor(plataforma);
+                } else {
+                    console = new ConsolaStudent(plataforma);
+                }
+                
+            } catch (Exception e) {
+                System.out.println("Error al iniciar sesión: " + e.getMessage());
+            }
+
+        } else if (option == 2) {
+            // Registrarse
+            System.out.println("Ingrese su login:");
+            String login = scanner.nextLine();
+            System.out.println("Ingrese su contraseña:");
+            String password = scanner.nextLine();
+            System.out.println("Es profesor? (S/N):");
+            String isProfessor = scanner.nextLine();
+
+            try {
+                plataforma.registrar(login, password, isProfessor.equalsIgnoreCase("S"));
+                System.out.println("Registro exitoso.");
+
+                // Redirigir según el rol del usuario
+                if (isProfessor.equalsIgnoreCase("S")) {
+                    console = new ConsolaProfesor(plataforma);
+                } else {
+                    console = new ConsolaStudent(plataforma);
+                }
+
+            } catch (Exception e) {
+                System.out.println("Error en el registro: " + e.getMessage());
+            }
         } else {
-            console = new ConsolaStudent(plataforma);
+            System.out.println("Opción no válida.");
         }
 
-        console.start();
+        // Iniciar consola si fue inicializada correctamente
+        if (console != null) {
+            console.start();
+        }
         scanner.close();
     }
 }
-
-
-

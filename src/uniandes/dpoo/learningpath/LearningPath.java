@@ -46,18 +46,26 @@ public class LearningPath {
 	
 	public LearningPath(String titulo,String desContenido,String[] objetivos,String nivelD,int duracionMin,LocalDateTime fechaCre,String creador) 
 	{
+		this.activas = new HashMap<>();
+		this.objetivos = objetivos;
+		this.actividades = new HashMap<>();
+		this.estudiantesAct = new HashMap<>();
+		this.estudiantes= new ArrayList<>();
+		this.exitos = new HashMap<>();
+		this.fracasos = new HashMap<>();
 		this.titulo = titulo;
-        this.objetivos = objetivos;
+		this.desContenido=desContenido;
         this.nivelDificultad = nivelD;
         this.duracionMin = duracionMin;
         this.rating = 0.0;
+        this.reseñas=new ArrayList<>();
+        this.ratings=new ArrayList<>();
         this.fechaCreacion = fechaCre;
         this.fechaModificacion = fechaCre;
+        this.fechaInicio = new HashMap<>();
+        this.fechaFinalisacion = new HashMap<>();
+        this.progresos = new HashMap<>();
         this.creador = creador;
-        this.actividades = new HashMap<>();
-        this.activas = new HashMap<>();
-        this.estudiantes= new ArrayList<>();
-        this.estudiantesAct = new HashMap<>();
         this.version=1;
 	}
 	
@@ -122,25 +130,25 @@ public class LearningPath {
 		}
     }
     
-	public void crearTarea(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado) {
-		Actividad actividad =new Tarea(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador);
+	public void crearTarea(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado, String objetivo) {
+		Actividad actividad =new Tarea(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador,objetivo);
 		actividades.put(actividad.getTitulo(),actividad);
 	}
-	public void crearQuiz(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado,Double califMin) {
-		Actividad actividad =new Quiz(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador,califMin);
+	public void crearQuiz(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado,Double califMin, String objetivo) {
+		Actividad actividad =new Quiz(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador,califMin, objetivo);
 		actividades.put(actividad.getTitulo(),actividad);
 	}
-	public void crearEncuesta(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado) {
-		Actividad actividad =new Encuesta(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador);
+	public void crearEncuesta(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado, String objetivo) {
+		Actividad actividad =new Encuesta(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador, objetivo);
 		actividades.put(actividad.getTitulo(),actividad);
 	}
-	public void crearExamen(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado) {
-		Actividad actividad =new Examen(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador);
+	public void crearExamen(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado, String objetivo) {
+		Actividad actividad =new Examen(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador, objetivo);
 		actividades.put(actividad.getTitulo(),actividad);
 	}
 	public void crearRecurso(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creado,
-			String tipoRecurso, String uRLRecuso) {
-		Actividad actividad =new Recurso(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador, tipoRecurso,uRLRecuso);
+			String tipoRecurso, String uRLRecuso, String objetivo) {
+		Actividad actividad =new Recurso(titulo,descripcion,duracion,nivelDificultad, actividadesPrevias,  fechaLimite,obligatoria, creador, tipoRecurso,uRLRecuso, objetivo);
 		actividades.put(actividad.getTitulo(),actividad);
 	}
 	

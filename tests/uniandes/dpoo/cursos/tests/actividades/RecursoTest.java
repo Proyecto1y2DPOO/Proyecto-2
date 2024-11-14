@@ -25,10 +25,11 @@ class RecursoTest {
     private static final String CREADOR = "Instructor";
     private static final String TIPO_RECURSO = "Video";
     private static final String URL_RECURSO = "https://example.com/video-tutorial";
+    private static final String OBJETIVO = "aprender mucho";
 
     @BeforeEach
     void setUp() {
-        recurso = new Recurso(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, TIPO_RECURSO, URL_RECURSO);
+        recurso = new Recurso(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, TIPO_RECURSO, URL_RECURSO, OBJETIVO);
     }
 
     @Test
@@ -46,7 +47,6 @@ class RecursoTest {
 
     @Test
     void testVerRecurso() throws Exception {
-        // Accedemos a `verRecurso` mediante reflexión, ya que es un método privado
         var metodoVerRecurso = Recurso.class.getDeclaredMethod("verRecurso");
         metodoVerRecurso.setAccessible(true);
         
@@ -56,5 +56,13 @@ class RecursoTest {
         assertEquals(2, resultado.size(), "La lista de recurso debería tener dos elementos");
         assertEquals(TIPO_RECURSO, resultado.get(0), "El primer elemento de la lista debería ser el tipo de recurso");
         assertEquals(URL_RECURSO, resultado.get(1), "El segundo elemento de la lista debería ser la URL del recurso");
+    }
+    
+    @Test
+    void testGetsYSetsURLYTipo() {
+    	recurso.setTipoRecurso("PDF");
+    	assertEquals("PDF", recurso.getTipoRecurso());
+    	recurso.setURLRecuso("www.bdfjkbkf");
+    	assertEquals("www.bdfjkbkf", recurso.getURLRecuso());
     }
 }

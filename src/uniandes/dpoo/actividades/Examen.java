@@ -10,8 +10,8 @@ public class Examen extends Actividad {
 	private List<PreguntaA> preguntas;
 	
     public Examen(String titulo, String descripcion, int duracion, String nivelDificultad,
-			List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador) {
-		super(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador);
+			List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador, String objetivo) {
+		super(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, objetivo);
 		
 	}
     

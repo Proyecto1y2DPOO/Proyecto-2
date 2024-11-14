@@ -11,19 +11,19 @@ public class Actividad {
 	private int duracion;
 	private String nivelDificultad;
 	private List<String> actividadesPrevias;
-	private LocalDateTime fechaCompletada;
 	private LocalDateTime fechaLimite;
 	private List<String> recomendacion;
 	private String estado;
 	private boolean obligatoria;
 	private String creador;
+	private String objetivo;
 	private int tiempoDedicado;
 	private Double rating;
 	private List<String> reseña;
 	private List<Double> ratings;
 	private Double nota;
 	
-	public Actividad(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador) {
+	public Actividad(String titulo, String descripcion, int duracion, String nivelDificultad, List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador,String objetivo) {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.duracion = duracion;
@@ -38,6 +38,8 @@ public class Actividad {
 		this.recomendacion = new ArrayList<>();
 		this.ratings = new ArrayList<>();
 		this.estado="";
+		this.objetivo=objetivo;
+		this.nota=0.0;
 	}
 	
 	public void agregarReseña(String reseñas) {
@@ -97,12 +99,7 @@ public class Actividad {
 	public void setNivelDificultad(String nivelDificultad) {
 		this.nivelDificultad = nivelDificultad;
 	}
-	public LocalDateTime getFechaCompletada() {
-		return fechaCompletada;
-	}
-	public void setFechaCompletada(LocalDateTime fechaCompletada) {
-		this.fechaCompletada = fechaCompletada;
-	}
+	
 	public LocalDateTime getFechaLimite() {
 		return fechaLimite;
 	}
@@ -171,6 +168,14 @@ public class Actividad {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getObjetivo() {
+		return objetivo;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
 	}
 
 		

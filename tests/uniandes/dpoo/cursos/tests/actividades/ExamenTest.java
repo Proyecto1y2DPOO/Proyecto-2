@@ -24,10 +24,11 @@ class ExamenTest {
     private static final LocalDateTime FECHA_LIMITE = LocalDateTime.now().plusDays(2);
     private static final boolean OBLIGATORIA = true;
     private static final String CREADOR = "Profesor";
+    private static final String OBJETIVO = "aprender mucho";
 
     @BeforeEach
     void setUp() {
-        examen = new Examen(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR);
+        examen = new Examen(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, OBJETIVO);
         examen.setPreguntas(new ArrayList<>());
     }
 

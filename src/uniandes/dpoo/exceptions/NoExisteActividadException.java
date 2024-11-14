@@ -1,10 +1,21 @@
 package uniandes.dpoo.exceptions;
 
+@SuppressWarnings("serial")
 public class NoExisteActividadException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 693239254505365195L;
-
+	private String NoExisteActividad;
+	
+	public NoExisteActividadException() {
+		
+		super();
+		this.NoExisteActividad = "No existe la actividad a la cual intenta acceder o manipular";
+	}
+	
+	@Override
+	
+	public String getMessage() {
+	
+		return NoExisteActividad;
+	
+	}
 }

@@ -12,8 +12,8 @@ public class Quiz extends Actividad {
     private Double califMin;
     
     public Quiz(String titulo, String descripcion, int duracion, String nivelDificultad,
-			List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador, Double califMin) {
-		super(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador);
+			List<String> actividadesPrevias, LocalDateTime fechaLimite, boolean obligatoria, String creador, Double califMin, String objetivo) {
+		super(titulo, descripcion, duracion, nivelDificultad, actividadesPrevias, fechaLimite, obligatoria, creador, objetivo);
 		this.setCalifMin(califMin);
 		this.setPreguntas(new ArrayList<>());
 	}

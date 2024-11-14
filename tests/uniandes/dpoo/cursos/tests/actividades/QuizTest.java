@@ -24,10 +24,11 @@ class QuizTest {
     private static final boolean OBLIGATORIA = true;
     private static final String CREADOR = "Profesor";
     private static final Double CALIF_MIN = 3.0;
+    private static final String OBJETIVO = "aprender mucho";
 
     @BeforeEach
     void setUp() {
-        quiz = new Quiz(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, CALIF_MIN);
+        quiz = new Quiz(TITULO, DESCRIPCION, DURACION, NIVEL_DIFICULTAD, ACTIVIDADES_PREVIAS, FECHA_LIMITE, OBLIGATORIA, CREADOR, CALIF_MIN, OBJETIVO);
     }
 
     @Test

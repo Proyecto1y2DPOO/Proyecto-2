@@ -1,79 +1,123 @@
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import uniandes.dpoo.exceptions.*;
 import uniandes.dpoo.plataforma.Plataforma;
 
-class PlataformaTest {
 
+public class PlataformaTest {
     private Plataforma plataforma;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         plataforma = new Plataforma();
     }
 
-    // Test para registrar un estudiante
     @Test
-    void testRegistrarEstudiante() throws Exception {
-        plataforma.registrar("student1", "password123", false);  // false para estudiante
-        assertTrue(plataforma.existeUsuario("student1"));
-        assertFalse(plataforma.isProfe("student1"));
+    public void testRegistrarEstudiante() throws Exception {
+        plataforma.registrar("estudiante1", "password123", false);
+        assertTrue(plataforma.existeUsuario("estudiante1"));
     }
 
-    // Test para registrar un profesor
     @Test
-    void testRegistrarProfesor() throws Exception {
-        plataforma.registrar("professor1", "profpass", true);  // true para profesor
-        assertTrue(plataforma.existeUsuario("professor1"));
-        assertTrue(plataforma.isProfe("professor1"));
+    public void testRegistrarProfesor() throws Exception {
+        plataforma.registrar("profesor1", "password123", true);
+        assertTrue(plataforma.existeUsuario("profesor1"));
+        assertTrue(plataforma.isProfe("profesor1"));
     }
 
-    // Test para iniciar sesión con un usuario válido
     @Test
-    void testIniciarSesionValido() throws Exception {
-        plataforma.registrar("student1", "password123", false);
-        plataforma.iniciarSesion("student1", "password123");
-        assertEquals("student1", plataforma.usuario);
+    public void testRegistrarUsuarioExistente() throws Exception {
+        try {
+            plataforma.registrar("estudiante1", "password123", false);
+            plataforma.registrar("estudiante1", "password123", false); // Duplicado
+            fail("Se esperaba una excepción de usuario existente");
+        } catch (ExisteUsuarioException e) {
+            assertEquals("Ya existe este usuario", e.getMessage());
+        }
     }
 
-    // Test para iniciar sesión con un usuario inválido
     @Test
-    void testIniciarSesionInvalido() {
-        assertThrows(ExisteUsuarioException.class, () -> {
-            plataforma.iniciarSesion("nonexistentUser", "password");
-        });
+    public void testIniciarSesionCorrecto() throws Exception {
+        plataforma.registrar("estudiante1", "password123", false);
+        plataforma.iniciarSesion("estudiante1", "password123");
+        assertEquals("estudiante1", plataforma.getUsuario());
     }
 
-    // Test para la creación de un Learning Path
     @Test
-    void testCrearLearningPathProfesor() throws Exception {
-        plataforma.registrar("professor1", "profpass", true);  // Registrar como profesor
-        plataforma.iniciarSesion("professor1", "profpass");
-        plataforma.crearLearningPath("Java Basics", "Learn the basics of Java.", "Understand syntax, classes, and methods", "Beginner", 120, "professor1");
-        assertTrue(plataforma.existeLP("Java Basics"));
+    public void testIniciarSesionIncorrecto() throws Exception {
+        try {
+            plataforma.registrar("estudiante1", "password123", false);
+            plataforma.iniciarSesion("estudiante1", "wrongpassword");
+            fail("Se esperaba una excepción de contraseña incorrecta");
+        } catch (ContraseñaIncorrectaException e) {
+            assertTrue(e instanceof ContraseñaIncorrectaException);
+        }
     }
 
-    // Test para que un estudiante no pueda crear un Learning Path
     @Test
-    void testCrearLearningPathEstudiante() throws Exception {
-        plataforma.registrar("student1", "password123", false);  // Registrar como estudiante
-        plataforma.iniciarSesion("student1", "password123");
-        assertThrows(noEsProfeException.class, () -> {
-            plataforma.crearLearningPath("Java Basics", "Learn the basics of Java.", "Understand syntax, classes, and methods", "Beginner", 120, "student1");
-        });
+    public void testCrearLearningPathComoEstudiante() throws Exception {
+        try {
+            plataforma.registrar("estudiante1", "password123", false);
+            plataforma.iniciarSesion("estudiante1", "password123");
+            plataforma.crearLearningPath("Curso1", "Contenido del curso", "Objetivos del curso", "Intermedio", 120, "profesor1");
+            fail("Se esperaba una excepción ya que un estudiante no puede crear un Learning Path");
+        } catch (noEsProfeException e) {
+            assertTrue(e instanceof noEsProfeException);
+        }
     }
 
-    // Test para verificar que un Learning Path no puede ser creado si ya existe
     @Test
-    void testCrearLearningPathExistente() throws Exception {
-        plataforma.registrar("professor1", "profpass", true);  // Registrar como profesor
-        plataforma.iniciarSesion("professor1", "profpass");
-        plataforma.crearLearningPath("Java Basics", "Learn the basics of Java.", "Understand syntax, classes, and methods", "Beginner", 120, "professor1");
-        assertThrows(ExisteLearningPathException.class, () -> {
-            plataforma.crearLearningPath("Java Basics", "Learn Java in depth.", "Learn advanced topics", "Intermediate", 150, "professor1");
-        });
+    public void testCrearLearningPathComoProfesor() throws Exception {
+        plataforma.registrar("profesor1", "password123", true);
+        plataforma.iniciarSesion("profesor1", "password123");
+        plataforma.crearLearningPath("Curso1", "Contenido del curso", "Objetivos del curso", "Intermedio", 120, "profesor1");
+        // Suponemos que los LearningPaths se almacenan en un mapa
+        assertTrue(plataforma.existeLP("Curso1"));
     }
+
+    @Test
+    public void testInscribirLearningPathComoEstudiante() throws Exception {
+        plataforma.registrar("profesor1", "password123", true);
+        plataforma.registrar("estudiante1", "password123", false);
+        plataforma.iniciarSesion("profesor1", "password123");
+        plataforma.crearLearningPath("Curso1", "Contenido del curso", "Objetivos del curso", "Intermedio", 120, "profesor1");
+        plataforma.iniciarSesion("estudiante1", "password123");
+        plataforma.inscribirLearningPath("Curso1");
+        assertEquals(1, plataforma.verProgreso("Curso1", "estudiante1"));
+    }
+
+    @Test
+    public void testMostrarActividades() throws Exception {
+        plataforma.registrar("profesor1", "password123", true);
+        plataforma.iniciarSesion("profesor1", "password123");
+        plataforma.crearLearningPath("Curso1", "Contenido", "Objetivos", "Avanzado", 90, "profesor1");
+        var actividades = plataforma.mostrarActividades("Curso1");
+        assertNotNull(actividades);
+    }
+
+    @Test
+    public void testCompletarActividadComoEstudiante() throws Exception {
+        plataforma.registrar("profesor1", "password123", true);
+        plataforma.registrar("estudiante1", "password123", false);
+        plataforma.iniciarSesion("profesor1", "password123");
+        plataforma.crearLearningPath("Curso1", "Contenido", "Objetivos", "Básico", 60, "profesor1");
+        plataforma.iniciarSesion("estudiante1", "password123");
+        plataforma.inscribirLearningPath("Curso1");
+        // Suponiendo que "Actividad1" es una actividad válida en el Learning Path
+        plataforma.marcaCompletarActividad("Curso1", "Actividad1");
+        assertEquals("completa", plataforma.mostrarActividad("Curso1", "Actividad1").getEstado());
+    }
+    
+    @Test
+    public void testGettersYSettersUsuario() {
+    	plataforma.setUsuario("l.guiza");
+    	assertEquals("l.guiza", plataforma.getUsuario());
+    	plataforma.setEsProfe(true);
+    	assertEquals(true, plataforma.getEsProfe());
+    	
+    }
+    
+    
+
 }
