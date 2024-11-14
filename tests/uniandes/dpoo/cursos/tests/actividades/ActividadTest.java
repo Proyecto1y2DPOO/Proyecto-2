@@ -124,8 +124,11 @@ public class ActividadTest {
     	actividad.setNivelDificultad("Alto");
     	actividad.setFechaLimite(LocalDateTime.of(2024, 11, 10, 10, 10, 10));
     	actividad.setObligatoria(true);
-    	actividad.set("");
-    	actividad.set("");
+    	actividad.setCreador("Laura");
+    	actividad.setTiempoDedicado(125);
+    	actividad.setRating(4.5);
+    	actividad.setEstado("Completado");
+    	actividad.setObjetivo("Completar conocimientos");
     }
 
 }
