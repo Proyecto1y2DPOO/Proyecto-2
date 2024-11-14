@@ -120,10 +120,10 @@ public class ActividadTest {
     	actividad.setTitulo("Act1");
     	assertEquals("Act1", actividad.getTitulo());
     	actividad.setDescripcion("Act1 consiste en x y y z");
-    	actividad.set("");
-    	actividad.set("");
-    	actividad.set("");
-    	actividad.set("");
+    	actividad.setDuracion(120);
+    	actividad.setNivelDificultad("Alto");
+    	actividad.setFechaLimite(LocalDateTime.of(2024, 11, 10, 10, 10, 10));
+    	actividad.setObligatoria(true);
     	actividad.set("");
     	actividad.set("");
     }
